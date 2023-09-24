@@ -7,13 +7,15 @@
 *
 * Return: void
 */
-void pall(stack_t **stack, unsigned int line) {
+void pall(stack_t **stack, unsigned int line)
+{
 	stack_t *tempo;
 
 	(void) line;
 
 	tempo = *stack;
-	while (tempo != NULL) {
+	while (tempo != NULL)
+	{
 		printf("%d\n", tempo->n);
 		tempo = tempo->next;
 	}
