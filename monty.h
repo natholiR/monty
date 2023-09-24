@@ -50,6 +50,11 @@ void op_pop(stack_t **stack, unsigned int line_number);
 void op_swap(stack_t **stack, unsigned int line_number);
 void op_add(stack_t **stack, unsigned int line_number);
 void op_nop(stack_t **stack, unsigned int line_number);
+void op_sub(stack_t **stack, unsigned int line_number);
+void op_div(stack_t **stack, unsigned int line_number);
+void op_mul(stack_t **stack, unsigned int line_number);
+void op_mod(stack_t **stack, unsigned int line_number);
+void op_pchar(stack_t **stack, unsigned int line_number);
 
 
 /* error handling functions */
@@ -64,6 +69,13 @@ void pint_error(stack_t **stack, unsigned int line_number);
 void pop_error(stack_t **stack, unsigned int line_number);
 void swap_error(stack_t **stack, unsigned int line_number);
 void add_error(stack_t **stack, unsigned int line_number);
+void sub_error(stack_t **stack, unsigned int line_number);
+void div_error(stack_t **stack, unsigned int line_number);
+void zero_error(stack_t **stack, unsigned int line_number);
+void mul_error(stack_t **stack, unsigned int line_number);
+void mod_error(stack_t **stack, unsigned int line_number);
+void pchar_error(stack_t **stack, unsigned int line_number);
+void char_error(stack_t **stack, unsigned int line_number);
 
 
 /**
