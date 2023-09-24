@@ -1,19 +1,21 @@
 #include "monty.h"
 
 /**
- * op_swap - swaps the values of the top two elements of the stack
- * @head: double pointer to head node
- * @line_number: line number being interpreted from Monty file
- *
- * Return: nothing, exit with code EXIT_FAILURE on failure
- */
-void op_swap(stack_t **head, unsigned int line_number)
-{
-	int temp_n;
+* swap - A swaps the top two elements of the stack
+* @stack: A double pointer to the top of the stack
+* @line: the line number of the current opcode.
+*
+* Return: void
+*/
+void swap(stack_t **stack, unsigned int line) {
+	int tempo;
 
-	if (!head || !*head || (*head)->next == NULL)
-		swap_error(head, line_number);
-	temp_n = (*head)->n;
-	(*head)->n = (*head)->next->n;
-	(*head)->next->n = temp_n;
+	if (*stack == NULL || (*stack)->next == NULL) {
+		fprintf(stderr, "L%u: can't swap, stack too short\n", line);
+		exit(EXIT_FAILURE);
+	}
+
+	tempo = (*stack)->n;
+	(*stack)->n = (*stack)->next->n;
+	(*stack)->next->n = tempo;
 }

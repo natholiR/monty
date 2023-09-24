@@ -1,14 +1,11 @@
 #include "monty.h"
 
 /**
- * op_nop - does nothing
- * @stack: double pointer to head node (unused)
- * @line_number: line being interpreted from Monty file (unused)
- *
- * Return: nothing Hermano
+ * nop - Does not nothing.
+ * @stack: the Pointer to pointer pointing to top node of the stack.
+ * @line: the Integer representing the line number of of the opcode.
  */
-void op_nop(stack_t **stack, unsigned int line_number)
-{
-	(void)stack;
-	(void)line_number;
+void nop(stack_t **stack, unsigned int line) {
+	(void) stack;
+	(void) line;
 }

@@ -1,27 +1,23 @@
 #include "monty.h"
-/**
- * op_pop - removes the top element of the stack
- * @head: double pointer to head node
- * @line_number: line number where error occured
- *
- * Return: nothing, exit with code EXIT_FAILURE on failure
- */
-void op_pop(stack_t **head, unsigned int line_number)
-{
-	stack_t *node;
 
-	if (!head || !*head) /* empty stack error */
-		pop_error(head, line_number);
-	node = *head;
-	if (!node->next)
+/**
+ * pop - to removes the top element of the stack
+ * @stack: a double pointer to the top of the stack
+ * @line: a line number of the current opcode
+ *
+ * Return: void
+ */
+void pop(stack_t **stack, unsigned int line)
+{
+	stack_t *tempo;
+
+	if (*stack == NULL)
 	{
-		free(*head);
-		*head = NULL;
+		fprintf(stderr, "L%u: can't pop an empty stack\n", line);
+		exit(EXIT_FAILURE);
 	}
-	else
-	{
-		(*head) = (*head)->next;
-		(*head)->prev = NULL;
-		free(node);
-	}
+
+	tempo = *stack;
+	*stack = (*stack)->next;
+	free(tempo);
 }

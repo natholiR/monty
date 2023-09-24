@@ -1,53 +1,68 @@
 #include "monty.h"
+
 /**
- * op_push - pushes a value to the top of the stack
- * head: A pointer to head node
- * line_number: line number where opcode was encountered
+ * push - to pushes an element to the stack
+ * @stack: A double pointer to the top of the stack
+ * @line: A line number of the current opcode
+ *
+ * Return: void
  */
-void op_push(stack_t **head, unsigned int line_number)
+void push(stack_t **stack, unsigned int line)
 {
-	stack_t *new_node = NULL, *tail = NULL;
-	size_t idx = 0;
+	char *arg = strtok(NULL, DELIMS);
+	int n;
 
-	if (!head || !line_number)
+	if (arg == NULL || _isdigit(arg) == 0)
+	{
+		fprintf(stderr, "L%u: usage: push integer\n", line);
 		exit(EXIT_FAILURE);
-	if (stack_val.n[idx] == '\0')
-		push_error(head, line_number);
-	new_node = malloc(sizeof(stack_t));
-	if (!new_node)
-		malloc_error(head);
-/* make sure string contains only numbers and '-' */
-	while (stack_val.n[idx] != '\0')
-	{
-		if (isdigit(stack_val.n[idx]) == 0 && stack_val.n[idx] != '-')
-			push_error(head, line_number);
-		idx++;
 	}
-	new_node->n = atoi(stack_val.n);
+	n = atoi(arg);
 
-	if (stack_val.qu == 1)
+	add_node(stack, n);
+}
+
+/**
+ * _isdigit - to checks if a string contain only digits
+ * @str: A string to check
+ *
+ * Return: 1 if true, 0 if false
+ */
+int _isdigit(char *str)
+{
+	int i;
+
+	for (i = 0; str[i]; i++)
 	{
-		new_node->next = NULL;
-		if (!*head)
-		{
-			new_node->prev = NULL;
-			*head = new_node;
-		}
-		else
-		{
-			tail = *head;
-			while (tail->next)
-				tail = tail->next;
-			new_node->prev = tail;
-			tail->next = new_node;
-		}
+		if (str[i] == '-' && i == 0)
+			continue;
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
 	}
-	else
+	return (1);
+}
+
+/**
+ * add_node - adds new node at the beginning of a stack_t list
+ * @head: A double pointer to the top of the stack
+ * @n: A value of the new node
+ *
+ * Return: void
+ */
+void add_node(stack_t **head, const int n)
+{
+	stack_t *new;
+
+	new = malloc(sizeof(stack_t));
+	if (new == NULL)
 	{
-		new_node->prev = NULL;
-		new_node->next = *head;
-		if (*head)
-			(*head)->prev = new_node;
-		*head = new_node;
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
 	}
+	new->n = n;
+	new->prev = NULL;
+	new->next = *head;
+	if (*head != NULL)
+		(*head)->prev = new;
+	*head = new;
 }
